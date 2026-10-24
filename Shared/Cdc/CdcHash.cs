@@ -30,7 +30,7 @@ namespace TrRebootTools.Shared.Cdc
 
         public static ulong Calculate(string filePath, CdcGame game, bool convertPathSeparators = false)
         {
-            if (convertPathSeparators && OperatingSystem.IsLinux())
+            if (convertPathSeparators && (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS()))
                 filePath = filePath.Replace('/', '\\');
 
             return For(game).Calculate(filePath);
@@ -39,7 +39,7 @@ namespace TrRebootTools.Shared.Cdc
         public static string? Lookup(ulong hash, CdcGame game, bool convertPathSeparators = false)
         {
             string? filePath = For(game).Lookup(hash);
-            if (filePath != null && convertPathSeparators && OperatingSystem.IsLinux())
+            if (filePath != null && convertPathSeparators && (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS()))
                 filePath = filePath.Replace('\\', '/');
 
             return filePath;

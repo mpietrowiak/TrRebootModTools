@@ -51,7 +51,7 @@ namespace TrRebootTools.Shared
 
         private static string GetFilePath()
         {
-            if (OperatingSystem.IsLinux())
+            if (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
             {
                 string folderPath = Environment.GetEnvironmentVariable("XDG_CONFIG_HOME") ??
                                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".config");

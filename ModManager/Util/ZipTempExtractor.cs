@@ -33,7 +33,7 @@ namespace TrRebootTools.ModManager.Util
             {
                 progress.Begin("Extracting archive...");
 
-                using IArchive archive = ArchiveFactory.Open(_archiveFilePath);
+                using IArchive archive = ArchiveFactory.OpenArchive(_archiveFilePath);
                 int numFiles = archive.Entries.Count(e => !e.IsDirectory);
 
                 using IReader reader = archive.ExtractAllEntries();

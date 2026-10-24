@@ -57,7 +57,7 @@ namespace TrRebootTools.Shared.Cdc
         public static string GetFilePath(ArchiveSet archiveSet, ResourceCollection collection, ResourceDescriptor resource, bool useOriginalFilePath = true)
         {
             string filePath = For(archiveSet.Game).GetFilePathInstance(archiveSet, collection, resource, useOriginalFilePath);
-            if (OperatingSystem.IsLinux())
+            if (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
                 filePath = filePath.Replace("\\", "/");
 
             return filePath;

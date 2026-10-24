@@ -18,6 +18,7 @@ namespace TrRebootTools.Shared
             List<Func<CdcGameInfo, Task<string?>>> getters =
             [
                 GetGameFolderFromConfigurationAsync,
+                GetGameFolderFromMacSteamAsync,
                 GetGameFolderFromWindowsRegistryAsync,
                 GetGameFolderFromLinuxSteamAsync
             ];
@@ -82,6 +83,18 @@ namespace TrRebootTools.Shared
             return gameInfo.LinuxSteamFolderPath;
         }
 
+        private static Task<string?> GetGameFolderFromMacSteamAsync(CdcGameInfo gameInfo)
+        {
+            if (!OperatingSystem.IsMacOS() || gameInfo.Game != CdcGame.Rise)
+                return Task.FromResult<string?>(null);
+
+            string path = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                "Library/Application Support/Steam/steamapps/common/Rise of the Tomb Raider/RiseOfTheTombRaiderData"
+            );
+            return Task.FromResult<string?>(path);
+        }
+
         private static async Task<string?> GetGameFolderFromFileBrowserAsync(CdcGameInfo gameInfo)
         {
             string message = $"Could not automatically determine the {gameInfo.ShortName} installation folder. Please select the game .exe manually.";
@@ -129,6 +142,11 @@ namespace TrRebootTools.Shared
             
             if (!Directory.Exists(folderPath))
                 return false;
+
+            // Feral's native macOS ROTTR port keeps the same pcx64-w TIGER data in
+            // a dedicated data folder rather than beside a Windows executable.
+            if (OperatingSystem.IsMacOS() && gameInfo.Game == CdcGame.Rise)
+                return File.Exists(Path.Combine(folderPath, "bigfile.000.tiger"));
 
             return gameInfo.ExeNames.Any(e => File.Exists(Path.Combine(folderPath, e)));
         }

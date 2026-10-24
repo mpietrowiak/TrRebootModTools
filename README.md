@@ -1,11 +1,13 @@
 # TR Reboot Mod Tools
 
 This repository contains modding tools for the Tomb Raider Reboot games: Tomb Raider (2013),
-Rise of the Romb Raider, and Shadow of the Tomb Raider.
+Rise of the Tomb Raider, and Shadow of the Tomb Raider.
 
 [Download from NexusMods](https://www.nexusmods.com/shadowofthetombraider/mods/185?tab=files)
 
 [Documentation](https://github.com/arcusmaximus/TrRebootModTools/blob/main/Documentation.md)
+
+[macOS build and ROTTR setup](MAC_README.md)
 
 ## Mod manager
 
